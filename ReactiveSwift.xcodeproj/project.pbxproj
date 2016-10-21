@@ -59,6 +59,9 @@
 		9A1D067D1D948A2300ACF44C /* UnidirectionalBindingSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1D067C1D948A2200ACF44C /* UnidirectionalBindingSpec.swift */; };
 		9A1D067E1D948A2300ACF44C /* UnidirectionalBindingSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1D067C1D948A2200ACF44C /* UnidirectionalBindingSpec.swift */; };
 		9A1D067F1D948A2300ACF44C /* UnidirectionalBindingSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1D067C1D948A2200ACF44C /* UnidirectionalBindingSpec.swift */; };
+		9A61156A1DBA2E110027B9AE /* SignalProducerPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6115691DBA2E110027B9AE /* SignalProducerPerformanceTests.swift */; };
+		9A61156B1DBA2E110027B9AE /* SignalProducerPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6115691DBA2E110027B9AE /* SignalProducerPerformanceTests.swift */; };
+		9A61156C1DBA2E110027B9AE /* SignalProducerPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6115691DBA2E110027B9AE /* SignalProducerPerformanceTests.swift */; };
 		9ABCB1851D2A5B5A00BCA243 /* Deprecations+Removals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABCB1841D2A5B5A00BCA243 /* Deprecations+Removals.swift */; };
 		9ABCB1861D2A5B5A00BCA243 /* Deprecations+Removals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABCB1841D2A5B5A00BCA243 /* Deprecations+Removals.swift */; };
 		9ABCB1871D2A5B5A00BCA243 /* Deprecations+Removals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABCB1841D2A5B5A00BCA243 /* Deprecations+Removals.swift */; };
@@ -229,6 +232,7 @@
 		7DFBED031CDB8C9500EE435B /* ReactiveSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReactiveSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A090C131DA0309E00EE97CA /* Reactive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reactive.swift; sourceTree = "<group>"; };
 		9A1D067C1D948A2200ACF44C /* UnidirectionalBindingSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnidirectionalBindingSpec.swift; sourceTree = "<group>"; };
+		9A6115691DBA2E110027B9AE /* SignalProducerPerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalProducerPerformanceTests.swift; sourceTree = "<group>"; };
 		9ABCB1841D2A5B5A00BCA243 /* Deprecations+Removals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Deprecations+Removals.swift"; sourceTree = "<group>"; };
 		A97451331B3A935E00F48E55 /* watchOS-Application.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "watchOS-Application.xcconfig"; sourceTree = "<group>"; };
 		A97451341B3A935E00F48E55 /* watchOS-Base.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "watchOS-Base.xcconfig"; sourceTree = "<group>"; };
@@ -491,6 +495,7 @@
 				B696FB801A7640C00075236D /* TestError.swift */,
 				C79B64731CD38B2B003F2376 /* TestLogger.swift */,
 				D04725FA19E49ED7006002AA /* Supporting Files */,
+				9A6115691DBA2E110027B9AE /* SignalProducerPerformanceTests.swift */,
 			);
 			name = ReactiveSwiftTests;
 			path = Tests/ReactiveSwiftTests;
@@ -894,6 +899,7 @@
 				7DFBED281CDB8DE300EE435B /* PropertySpec.swift in Sources */,
 				7DFBED291CDB8DE300EE435B /* SchedulerSpec.swift in Sources */,
 				7DFBED2A1CDB8DE300EE435B /* SignalLifetimeSpec.swift in Sources */,
+				9A61156C1DBA2E110027B9AE /* SignalProducerPerformanceTests.swift in Sources */,
 				7DFBED2B1CDB8DE300EE435B /* SignalProducerSpec.swift in Sources */,
 				7DFBED2C1CDB8DE300EE435B /* SignalProducerLiftingSpec.swift in Sources */,
 				7DFBED2D1CDB8DE300EE435B /* SignalSpec.swift in Sources */,
@@ -970,6 +976,7 @@
 				D8170FC11B100EBC004192AD /* FoundationExtensionsSpec.swift in Sources */,
 				C79B64741CD38B2B003F2376 /* TestLogger.swift in Sources */,
 				CA6F28501C52626B001879D2 /* FlattenSpec.swift in Sources */,
+				9A61156A1DBA2E110027B9AE /* SignalProducerPerformanceTests.swift in Sources */,
 				4A0E11041D2A95200065D310 /* LifetimeSpec.swift in Sources */,
 				CDCD247A1C277EEC00710AEE /* AtomicSpec.swift in Sources */,
 				579504331BB8A34200A5E482 /* BagSpec.swift in Sources */,
@@ -1020,6 +1027,7 @@
 				D8024DB31B2E1BB0005E6B9A /* SignalProducerLiftingSpec.swift in Sources */,
 				BFA6B94E1A7604D500C846D1 /* SignalProducerNimbleMatchers.swift in Sources */,
 				B696FB821A7640C00075236D /* TestError.swift in Sources */,
+				9A61156B1DBA2E110027B9AE /* SignalProducerPerformanceTests.swift in Sources */,
 				D8170FC21B100EBC004192AD /* FoundationExtensionsSpec.swift in Sources */,
 				D0C3131419EF2B2000984962 /* SchedulerSpec.swift in Sources */,
 				C79B64751CD38B2B003F2376 /* TestLogger.swift in Sources */,

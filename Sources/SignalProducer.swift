@@ -171,6 +171,25 @@ public struct SignalProducer<Value, Error: Swift.Error> {
 	///
 	/// - parameters:
 	///   - setUp: A closure that accepts a `signal` and `interrupter`.
+	internal func startWithSignal(shared producerDisposable: CompositeDisposable, _ setup: (Signal<Value, Error>) -> Void) {
+		let (signal, observer) = Signal<Value, Error>.pipe()
+
+		producerDisposable += observer.sendInterrupted
+
+		setup(signal)
+
+		startHandler(observer, producerDisposable)
+	}
+
+	/// Create a Signal from the producer, pass it into the given closure,
+	/// then start sending events on the Signal when the closure has returned.
+	///
+	/// The closure will also receive a disposable which can be used to
+	/// interrupt the work associated with the signal and immediately send an
+	/// `interrupted` event.
+	///
+	/// - parameters:
+	///   - setUp: A closure that accepts a `signal` and `interrupter`.
 	public func startWithSignal(_ setup: (_ signal: Signal<Value, Error>, _ interrupter: Disposable) -> Void) {
 		let (signal, observer) = Signal<Value, Error>.pipe()
 
@@ -178,8 +197,6 @@ public struct SignalProducer<Value, Error: Swift.Error> {
 		// upstream producers.
 		let producerDisposable = CompositeDisposable()
 
-		// Directly disposed of when `start()` or `startWithSignal()` is
-		// disposed.
 		let cancelDisposable = ActionDisposable {
 			observer.sendInterrupted()
 			producerDisposable.dispose()
@@ -379,9 +396,7 @@ extension SignalProducerProtocol {
 	///            created signal.
 	public func lift<U, F>(_ transform: @escaping (Signal<Value, Error>) -> Signal<U, F>) -> SignalProducer<U, F> {
 		return SignalProducer { observer, outerDisposable in
-			self.startWithSignal { signal, innerDisposable in
-				outerDisposable += innerDisposable
-
+			self.producer.startWithSignal(shared: outerDisposable) { signal in
 				transform(signal).observe(observer)
 			}
 		}
@@ -413,12 +428,8 @@ extension SignalProducerProtocol {
 	private func liftRight<U, F, V, G>(_ transform: @escaping (Signal<Value, Error>) -> (Signal<U, F>) -> Signal<V, G>) -> (SignalProducer<U, F>) -> SignalProducer<V, G> {
 		return { otherProducer in
 			return SignalProducer { observer, outerDisposable in
-				self.startWithSignal { signal, disposable in
-					outerDisposable.add(disposable)
-
-					otherProducer.startWithSignal { otherSignal, otherDisposable in
-						outerDisposable += otherDisposable
-
+				self.producer.startWithSignal(shared: outerDisposable) { signal in
+					otherProducer.startWithSignal(shared: outerDisposable) { otherSignal in
 						transform(signal)(otherSignal).observe(observer)
 					}
 				}
@@ -433,12 +444,8 @@ extension SignalProducerProtocol {
 	private func liftLeft<U, F, V, G>(_ transform: @escaping (Signal<Value, Error>) -> (Signal<U, F>) -> Signal<V, G>) -> (SignalProducer<U, F>) -> SignalProducer<V, G> {
 		return { otherProducer in
 			return SignalProducer { observer, outerDisposable in
-				otherProducer.startWithSignal { otherSignal, otherDisposable in
-					outerDisposable += otherDisposable
-					
-					self.startWithSignal { signal, disposable in
-						outerDisposable.add(disposable)
-
+				otherProducer.producer.startWithSignal(shared: outerDisposable) { otherSignal in
+					self.producer.startWithSignal(shared: outerDisposable) { signal in
 						transform(signal)(otherSignal).observe(observer)
 					}
 				}
@@ -475,9 +482,8 @@ extension SignalProducerProtocol {
 				}
 				outerDisposable += otherSignal.observe(otherSignalObserver)
 
-				self.startWithSignal { signal, disposable in
-					outerDisposable += disposable
-					outerDisposable += transform(signal)(wrapperSignal).observe(observer)
+				self.producer.startWithSignal(shared: outerDisposable) { signal in
+					transform(signal)(wrapperSignal).observe(observer)
 				}
 			}
 		}
